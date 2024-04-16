@@ -1,0 +1,187 @@
+<div class="container">
+  <div class="mt-5">
+    <div class="card">
+      <div class="card-header bg-success">
+        <h2 class="text-center fw-bold text-white">Agenda de contatos</h2>
+      </div>
+      <div class="card-body">
+        <a routerLink="/contacts/new" class="btn btn-success mb-4">Novo contato</a>
+
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
+              type="button" role="tab" aria-controls="nav-home" aria-selected="true">Todos</button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-fav" type="button"
+              role="tab" aria-controls="nav-profile" aria-selected="false">Favoritos</button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-inactive"
+              type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Inativos</button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-home-tab"
+            tabindex="0">
+            <table class="table caption-top">
+              <caption>Lista de contatos</caption>
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Nº Celular</th>
+                  <th scope="col">Nº Telefone</th>
+                  <th scope="col">Favorito</th>
+                  <th scope="col">Ativo</th>
+                  <th scope="col">Data de cadastro</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of contacts; track item) {
+                <tr>
+                  <th scope="row">{{ item.contato_id }}</th>
+                  <td>{{ item.contato_nome}}</td>
+                  <td>{{ item.contato_email}}</td>
+                  <td>{{ item.phoneNumber }}</td>
+                  <td>{{ item.contato_telefone }}</td>
+                  <td>
+                    <i
+                      [ngClass]="item.contato_sn_favorito === 1 ? 'fas fa-star text-warning' : 'far fa-star text-muted'"></i>
+                  </td>
+                  <td>
+                    <i
+                      [ngClass]="item.contato_sn_ativo === 1 ? 'fas fa-check text-success' : 'fas fa-times text-danger'"></i>
+                    <!-- {{ item.contato_sn_ativo === 1 ? "Ativo" : "Inativo" }} -->
+                  </td>
+                  <td>{{ item.contato_dh_cad | date : 'dd/MM/yyyy HH:mm'}}</td>
+                  <td>
+                    <i class="fas fa-trash mx-3" style="cursor: pointer;" data-bs-toggle="modal"
+                      data-bs-target="#deleteModal" (click)="deleteContact(item.contato_id)"></i>
+                    <i class="fas fa-edit" style="cursor: pointer;" (click)="doEdit(item.contato_id)"></i>
+                  </td>
+                </tr>
+                }
+
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="nav-fav" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+            <table class="table caption-top">
+              <caption>Lista de contatos</caption>
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Nº Celular</th>
+                  <th scope="col">Nº Telefone</th>
+                  <th scope="col">Favorito</th>
+                  <th scope="col">Ativo</th>
+                  <th scope="col">Data de cadastro</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of contacts; track item) {
+                @if (item.contato_sn_favorito === 1) {
+
+                <tr>
+                  <th scope="row">{{ item.contato_id }}</th>
+                  <td>{{ item.contato_nome}}</td>
+                  <td>{{ item.contato_email}}</td>
+                  <td>{{ item.phoneNumber }}</td>
+                  <td>{{ item.contato_telefone }}</td>
+                  <td>
+                    <i
+                      [ngClass]="item.contato_sn_favorito === 1 ? 'fas fa-star text-warning' : 'far fa-star text-muted'"></i>
+                  </td>
+                  <td>
+                    <i
+                      [ngClass]="item.contato_sn_ativo === 1 ? 'fas fa-check text-success' : 'fas fa-times text-danger'"></i>
+                    <!-- {{ item.contato_sn_ativo === 1 ? "Ativo" : "Inativo" }} -->
+                  </td>
+                  <td>{{ item.contato_dh_cad | date : 'dd/MM/yyyy HH:mm'}}</td>
+                  <td>
+                    <i class="fas fa-trash mx-3" style="cursor: pointer;" data-bs-toggle="modal"
+                      data-bs-target="#deleteModal" (click)="deleteContact(item.contato_id)"></i>
+                    <i class="fas fa-edit" style="cursor: pointer;" (click)="doEdit(item.contato_id)"></i>
+                  </td>
+                </tr>
+
+                }
+                }
+
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="nav-inactive" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+            <table class="table caption-top">
+              <caption>Lista de contatos</caption>
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Nº Celular</th>
+                  <th scope="col">Nº Telefone</th>
+                  <th scope="col">Favorito</th>
+                  <th scope="col">Ativo</th>
+                  <th scope="col">Data de cadastro</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of contacts; track item) {
+                @if (item.contato_sn_ativo !== 1) {
+
+                <tr>
+                  <th scope="row">{{ item.contato_id }}</th>
+                  <td>{{ item.contato_nome}}</td>
+                  <td>{{ item.contato_email}}</td>
+                  <td>{{ item.phoneNumber }}</td>
+                  <td>{{ item.contato_telefone }}</td>
+                  <td>
+                    <i
+                      [ngClass]="item.contato_sn_favorito === 1 ? 'fas fa-star text-warning' : 'far fa-star text-muted'"></i>
+                  </td>
+                  <td>
+                    <i
+                      [ngClass]="item.contato_sn_ativo === 1 ? 'fas fa-check text-success' : 'fas fa-times text-danger'"></i>
+                    <!-- {{ item.contato_sn_ativo === 1 ? "Ativo" : "Inativo" }} -->
+                  </td>
+                  <td>{{ item.contato_dh_cad | date : 'dd/MM/yyyy HH:mm'}}</td>
+                  <td>
+                    <i class="fas fa-trash mx-3" style="cursor: pointer;" data-bs-toggle="modal"
+                      data-bs-target="#deleteModal" (click)="deleteContact(item.contato_id)"></i>
+                    <i class="fas fa-edit" style="cursor: pointer;" (click)="doEdit(item.contato_id)"></i>
+                  </td>
+                </tr>
+
+                }
+                }
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Deletar contato</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza que deseja apagar o contato?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="doDelete()">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>

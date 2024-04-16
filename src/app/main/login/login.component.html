@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="assets/images/undraw_remotely_-2-j6y.svg" alt="Image" class="img-fluid">
+    </div>
+    <div class="col-md-6 contents">
+      <div class="pt-5 mt-5 row justify-content-center">
+        <div class="col-md-8">
+          <div class="mb-4">
+            <h3>Entrar</h3>
+            <p class="mb-4">Insira suas credenciais para se autenticar ao sistema.</p>
+          </div>
+          <form [formGroup]="entityForm">
+            <div class="form-group first">
+              <app-input formControlName="username" [cssClass]="validateClass('username')" inputType="text"
+                inputId="username" labelName="Usuario" placeholder="username" [control]="entityForm.get('username')" />
+              <!-- <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" formControlName="username"> -->
+            </div>
+            <div class="form-group last mb-4">
+              <app-input formControlName="password" [cssClass]="validateClass('password')" inputType="password"
+                inputId="password" labelName="Senha" placeholder="*******" [control]="entityForm.get('password')" />
+              <!-- <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password"> -->
+            </div>
+
+            <input type="submit" value="Log In" class="btn btn-block btn-primary" (click)="doLogin()">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
